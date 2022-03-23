@@ -23,13 +23,13 @@ $ npm run prod
 ![alt-текст](https://i.ibb.co/2Wq6YWh/interface1.png "Основной интерфейс")
 
 Поля формы оснащены первичной проверкой данных, а так же присутствует валидация на стороне сервера.
-![alt-текст](https://ibb.co/FsfJ6Hy "Заполненная форма")
+![alt-текст](https://i.ibb.co/N1kpxTJ/2022-03-23-23-23-55.png "Заполненная форма")
 
 Пример запроса:
-![alt-текст](https://ibb.co/VTL6BB6 "request")
+![alt-текст](https://i.ibb.co/BBfkssk/req.png "request")
 
 Пример ответа:
-![alt-текст](https://ibb.co/D7hjZn1 "response")
+![alt-текст](https://i.ibb.co/khjPtFG/res.png "response")
 
 ---
 
