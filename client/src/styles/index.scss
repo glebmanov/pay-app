@@ -1,0 +1,47 @@
+@import 'antd/dist/antd.css';
+
+body {
+  background-color: #464646;
+}
+
+.wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 300px;
+  transform: translate(-50%, -50%);
+  border: 1px solid #b6b6b6;
+  border-radius: 2px;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.ant-form-item {
+  &:nth-last-child(1) {
+    margin-bottom: 0;
+  }
+}
+
+.ant-form-item-explain {
+  font-size: 11px;
+}
+
+.ant-form-vertical .ant-form-item-label {
+  padding: 0;
+}
+
+.card-number {
+  width: 100%;
+}
+
+.exp-date {
+  width: 110px;
+}
+
+.cvv {
+  width: 50px;
+}
+
+.amount {
+  width: 110px;
+}
