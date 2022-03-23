@@ -1,33 +1,33 @@
 import React, { useEffect } from 'react';
 import { Form, Button, Input } from 'antd';
 import { useHttp } from './hooks/http.hook';
-import { useMessage } from './hooks/message.hook';
 
 import './styles/index.scss';
 
 const App = () => {
+  const [form] = Form.useForm();
+
   const { loading, request, error, clearError } = useHttp();
-  const message = useMessage();
 
   useEffect(() => {
-    message(error);
     clearError();
-  }, [error, message, clearError]);
+  }, [error, clearError]);
 
-  const handlerPayment = async values => {
+  const submitForm = async values => {
     try {
       const data = await request('/api/pay', 'POST', values);
       console.log(data);
-      message(data.message);
     } catch (e) {}
   };
 
   return (
     <div className='wrapper'>
       <Form
+        form={form}
         layout='vertical'
         onFinish={values => {
-          handlerPayment(values);
+          submitForm(values);
+          form.resetFields();
         }}
       >
         <Form.Item
@@ -37,10 +37,12 @@ const App = () => {
           rules={[
             { whitespace: false },
             {
-              validator: (_, value) =>
-                value && value.match('[0-9]{16}')
-                  ? Promise.resolve()
-                  : Promise.reject('Номер должен состоять из 16 цифр'),
+              validator: (_, value) => {
+                if (value && value.match('[0-9]{16}')) {
+                  return Promise.resolve();
+                }
+                return Promise.reject('Номер должен состоять из 16 цифр');
+              },
             },
           ]}
         >
@@ -59,14 +61,16 @@ const App = () => {
           rules={[
             { whitespace: false },
             {
-              validator: (_, value) =>
-                value && value.match('(0[1-9]|1[0-2])[/](19|20)?[0-9]{2}')
-                  ? Promise.resolve()
-                  : Promise.reject('Дата должна быть формата 05/2023'),
+              validator: (_, value) => {
+                if (value && value.match('(0[1-9]|1[0-2])[/](19|20)[0-9]{2}')) {
+                  return Promise.resolve();
+                }
+                return Promise.reject('Дата должна быть формата 05/2023');
+              },
             },
           ]}
         >
-          <Input inputMode='numeric' className='exp-date' placeholder='05/2023'></Input>
+          <Input inputMode='numeric' maxLength='7' className='exp-date' placeholder='05/2023'></Input>
         </Form.Item>
         <Form.Item
           name='Cvv'
@@ -75,8 +79,12 @@ const App = () => {
           rules={[
             { whitespace: false },
             {
-              validator: (_, value) =>
-                value && value.match('[0-9]{3}') ? Promise.resolve() : Promise.reject('Номер cvv состоит из 3-х цифр'),
+              validator: (_, value) => {
+                if (value && value.match('[0-9]{3}')) {
+                  return Promise.resolve();
+                }
+                return Promise.reject('Номер cvv состоит из 3-х цифр');
+              },
             },
           ]}
         >
@@ -89,15 +97,24 @@ const App = () => {
           rules={[
             { whitespace: false },
             {
-              validator: (_, value) =>
-                value && value.match('[0-9]{1,9}') ? Promise.resolve() : Promise.reject('Здесь должна быть сумма'),
+              validator: (_, value) => {
+                if (value && value.match('^[0-9]*[1-9][0-9]*$')) {
+                  return Promise.resolve();
+                }
+                return Promise.reject('Здесь должна быть сумма');
+              },
             },
           ]}
         >
-          <Input inputMode='numeric' className='amount'></Input>
+          <Input maxLength='9' className='amount'></Input>
         </Form.Item>
-        <Form.Item>
-          <Button block type='primary' htmlType='submit' disabled={loading}>
+        <Form.Item shouldUpdate>
+          <Button
+            block
+            type='primary'
+            htmlType='submit'
+            disabled={loading}
+          >
             Оплатить
           </Button>
         </Form.Item>
