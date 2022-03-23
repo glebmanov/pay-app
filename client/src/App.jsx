@@ -109,12 +109,7 @@ const App = () => {
           <Input maxLength='9' className='amount'></Input>
         </Form.Item>
         <Form.Item shouldUpdate>
-          <Button
-            block
-            type='primary'
-            htmlType='submit'
-            disabled={loading}
-          >
+          <Button block type='primary' htmlType='submit' disabled={loading}>
             Оплатить
           </Button>
         </Form.Item>
