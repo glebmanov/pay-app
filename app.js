@@ -14,7 +14,7 @@ const start = async () => {
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-      }
+      },
     );
     app.listen(PORT, () => console.log(`App has been started on port ${PORT}...`));
   } catch (error) {
