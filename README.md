@@ -15,11 +15,11 @@ $ make install
 
 ### Запуск
 
-#### в режиме prod
+#### 1. в режиме prod
 ```sh
 $ make start
 ```
-#### в режиме dev
+#### 2 .в режиме dev
 ```sh
 $ make dev
 ```
